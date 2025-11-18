@@ -1,94 +1,10 @@
-// Sample city data with coordinates
-const cities = [
-    { name: "New York", country: "USA", lat: 40.7128, lng: -74.0060 },
-    { name: "Los Angeles", country: "USA", lat: 34.0522, lng: -118.2437 },
-    { name: "Chicago", country: "USA", lat: 41.8781, lng: -87.6298 },
-    { name: "Houston", country: "USA", lat: 29.7604, lng: -95.3698 },
-    { name: "Phoenix", country: "USA", lat: 33.4484, lng: -112.0740 },
-    { name: "Philadelphia", country: "USA", lat: 39.9526, lng: -75.1652 },
-    { name: "San Antonio", country: "USA", lat: 29.4241, lng: -98.4936 },
-    { name: "San Diego", country: "USA", lat: 32.7157, lng: -117.1611 },
-    { name: "Dallas", country: "USA", lat: 32.7767, lng: -96.7970 },
-    { name: "San Jose", country: "USA", lat: 37.3382, lng: -121.8863 },
-    { name: "London", country: "UK", lat: 51.5074, lng: -0.1278 },
-    { name: "Paris", country: "France", lat: 48.8566, lng: 2.3522 },
-    { name: "Tokyo", country: "Japan", lat: 35.6762, lng: 139.6503 },
-    { name: "Sydney", country: "Australia", lat: -33.8688, lng: 151.2093 },
-    { name: "Berlin", country: "Germany", lat: 52.5200, lng: 13.4050 },
-    { name: "Rome", country: "Italy", lat: 41.9028, lng: 12.4964 },
-    { name: "Madrid", country: "Spain", lat: 40.4168, lng: -3.7038 },
-    { name: "Barcelona", country: "Spain", lat: 41.3851, lng: 2.1734 },
-    { name: "Amsterdam", country: "Netherlands", lat: 52.3676, lng: 4.9041 },
-    { name: "Vienna", country: "Austria", lat: 48.2082, lng: 16.3738 },
-    { name: "Prague", country: "Czech Republic", lat: 50.0755, lng: 14.4378 },
-    { name: "Budapest", country: "Hungary", lat: 47.4979, lng: 19.0402 },
-    { name: "Warsaw", country: "Poland", lat: 52.2297, lng: 21.0122 },
-    { name: "Stockholm", country: "Sweden", lat: 59.3293, lng: 18.0686 },
-    { name: "Copenhagen", country: "Denmark", lat: 55.6761, lng: 12.5683 },
-    { name: "Oslo", country: "Norway", lat: 59.9139, lng: 10.7522 },
-    { name: "Helsinki", country: "Finland", lat: 60.1699, lng: 24.9384 },
-    { name: "Dublin", country: "Ireland", lat: 53.3498, lng: -6.2603 },
-    { name: "Edinburgh", country: "UK", lat: 55.9533, lng: -3.1883 },
-    { name: "Manchester", country: "UK", lat: 53.4808, lng: -2.2426 },
-    { name: "Birmingham", country: "UK", lat: 52.4862, lng: -1.8904 },
-    { name: "Glasgow", country: "UK", lat: 55.8642, lng: -4.2518 },
-    { name: "Liverpool", country: "UK", lat: 53.4084, lng: -2.9916 },
-    { name: "Bristol", country: "UK", lat: 51.4545, lng: -2.5879 },
-    { name: "Leeds", country: "UK", lat: 53.8008, lng: -1.5491 },
-    { name: "Sheffield", country: "UK", lat: 53.3811, lng: -1.4701 },
-    { name: "Newcastle", country: "UK", lat: 54.9783, lng: -1.6178 },
-    { name: "Nottingham", country: "UK", lat: 52.9548, lng: -1.1581 },
-    { name: "Leicester", country: "UK", lat: 52.6369, lng: -1.1398 },
-    { name: "Coventry", country: "UK", lat: 52.4068, lng: -1.5197 },
-    { name: "Belfast", country: "UK", lat: 54.5973, lng: -5.9301 },
-    { name: "Cardiff", country: "UK", lat: 51.4816, lng: -3.1791 },
-    { name: "Brighton", country: "UK", lat: 50.8225, lng: -0.1372 },
-    { name: "Oxford", country: "UK", lat: 51.7520, lng: -1.2577 },
-    { name: "Cambridge", country: "UK", lat: 52.2053, lng: 0.1218 },
-    { name: "York", country: "UK", lat: 53.9600, lng: -1.0873 },
-    { name: "Bath", country: "UK", lat: 51.3758, lng: -2.3599 },
-    { name: "Canterbury", country: "UK", lat: 51.2802, lng: 1.0789 },
-    { name: "Stratford-upon-Avon", country: "UK", lat: 52.1923, lng: -1.7074 },
-    { name: "Windsor", country: "UK", lat: 51.4839, lng: -0.6044 },
-    { name: "Mumbai", country: "India", lat: 19.0760, lng: 72.8777 },
-    { name: "Delhi", country: "India", lat: 28.6139, lng: 77.2090 },
-    { name: "Bangalore", country: "India", lat: 12.9716, lng: 77.5946 },
-    { name: "Hyderabad", country: "India", lat: 17.3850, lng: 78.4867 },
-    { name: "Chennai", country: "India", lat: 13.0827, lng: 80.2707 },
-    { name: "Kolkata", country: "India", lat: 22.5726, lng: 88.3639 },
-    { name: "Pune", country: "India", lat: 18.5204, lng: 73.8567 },
-    { name: "Ahmedabad", country: "India", lat: 23.0225, lng: 72.5714 },
-    { name: "Beijing", country: "China", lat: 39.9042, lng: 116.4074 },
-    { name: "Shanghai", country: "China", lat: 31.2304, lng: 121.4737 },
-    { name: "Hong Kong", country: "China", lat: 22.3193, lng: 114.1694 },
-    { name: "Singapore", country: "Singapore", lat: 1.3521, lng: 103.8198 },
-    { name: "Bangkok", country: "Thailand", lat: 13.7563, lng: 100.5018 },
-    { name: "Dubai", country: "UAE", lat: 25.2048, lng: 55.2708 },
-    { name: "Istanbul", country: "Turkey", lat: 41.0082, lng: 28.9784 },
-    { name: "Cairo", country: "Egypt", lat: 30.0444, lng: 31.2357 },
-    { name: "Johannesburg", country: "South Africa", lat: -26.2041, lng: 28.0473 },
-    { name: "Cape Town", country: "South Africa", lat: -33.9249, lng: 18.4241 },
-    { name: "São Paulo", country: "Brazil", lat: -23.5505, lng: -46.6333 },
-    { name: "Rio de Janeiro", country: "Brazil", lat: -22.9068, lng: -43.1729 },
-    { name: "Buenos Aires", country: "Argentina", lat: -34.6037, lng: -58.3816 },
-    { name: "Mexico City", country: "Mexico", lat: 19.4326, lng: -99.1332 },
-    { name: "Toronto", country: "Canada", lat: 43.6532, lng: -79.3832 },
-    { name: "Vancouver", country: "Canada", lat: 49.2827, lng: -123.1207 },
-    { name: "Montreal", country: "Canada", lat: 45.5017, lng: -73.5673 },
-    { name: "Seoul", country: "South Korea", lat: 37.5665, lng: 126.9780 },
-    { name: "Busan", country: "South Korea", lat: 35.1796, lng: 129.0756 },
-    { name: "Melbourne", country: "Australia", lat: -37.8136, lng: 144.9631 },
-    { name: "Brisbane", country: "Australia", lat: -27.4698, lng: 153.0251 },
-    { name: "Perth", country: "Australia", lat: -31.9505, lng: 115.8605 },
-    { name: "Auckland", country: "New Zealand", lat: -36.8485, lng: 174.7633 },
-    { name: "Wellington", country: "New Zealand", lat: -41.2865, lng: 174.7762 }
-].sort((a, b) => a.name.localeCompare(b.name));
-
 // Application state
 let tripPlan = [];
-let filteredCities = [...cities];
+let filteredCities = [];
 let isSearching = false;
 let pendingLineType = null; // Store which connection needs a line type
+let searchTimeout = null;
+let isLoadingCities = false;
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
@@ -101,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Initialize city list
 function initializeCityList() {
-    const cityListContainer = document.getElementById('cityList');
     renderCityList();
 }
 
@@ -109,13 +24,228 @@ function renderCityList() {
     const cityListContainer = document.getElementById('cityList');
     cityListContainer.innerHTML = '';
     
+    if (isLoadingCities) {
+        const loadingItem = document.createElement('div');
+        loadingItem.className = 'text-white p-2 text-center';
+        loadingItem.textContent = 'Loading cities...';
+        cityListContainer.appendChild(loadingItem);
+        return;
+    }
+    
+    if (filteredCities.length === 0) {
+        const emptyItem = document.createElement('div');
+        emptyItem.className = 'text-gray-400 p-2 text-center';
+        emptyItem.textContent = 'Type to search for cities...';
+        cityListContainer.appendChild(emptyItem);
+        return;
+    }
+    
     filteredCities.forEach(city => {
         const cityItem = document.createElement('div');
         cityItem.className = 'city-list-item text-white p-2 rounded cursor-pointer transition';
-        cityItem.textContent = `${city.name}, ${city.country}`;
+        
+        // Build display text with state/prefecture if available
+        let displayText = city.name;
+        if (city.state) {
+            displayText += `, ${city.state}`;
+        }
+        displayText += `, ${city.country || city.country_name || 'Unknown'}`;
+        
+        cityItem.textContent = displayText;
         cityItem.addEventListener('click', () => addCityToPlan(city));
         cityListContainer.appendChild(cityItem);
     });
+}
+
+// Search cities using OpenStreetMap Nominatim API
+async function searchCities(query) {
+    if (!query || query.length < 2) {
+        filteredCities = [];
+        renderCityList();
+        return;
+    }
+    
+    isLoadingCities = true;
+    renderCityList();
+    
+    try {
+        // Use Nominatim API - free, no API key required
+        // Search for places, cities, towns, villages, municipalities, etc.
+        // Removed featuretype restriction to get more comprehensive results
+        const url = `https://nominatim.openstreetmap.org/search?` +
+            `q=${encodeURIComponent(query)}&` +
+            `format=json&` +
+            `addressdetails=1&` +
+            `limit=50&` + // Increased limit to get more results
+            `extratags=1&` +
+            `namedetails=1`; // Get more name information
+        
+        const response = await fetch(url, {
+            headers: {
+                'User-Agent': 'Travel-Logger-App/1.0' // Required by Nominatim
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch cities');
+        }
+        
+        const data = await response.json();
+        
+        // Helper function to extract city name
+        function extractCityName(place) {
+            const address = place.address || {};
+            const placeType = place.class || '';
+            const placeTypeDetail = place.type || '';
+            
+            // Try different fields to get the city name
+            if (place.name) {
+                // For administrative boundaries, sometimes we want the address city/town
+                if (placeType === 'boundary' && placeTypeDetail === 'administrative') {
+                    return address.city || address.town || address.municipality || place.name;
+                }
+                return place.name;
+            }
+            
+            return address.city || 
+                   address.town || 
+                   address.village || 
+                   address.municipality ||
+                   address.county ||
+                   address.state ||
+                   place.display_name?.split(',')[0] ||
+                   'Unknown';
+        }
+        
+        // Helper function to extract country
+        function extractCountry(address) {
+            return address.country || 
+                   address.country_code?.toUpperCase() || 
+                   'Unknown';
+        }
+        
+        // Helper function to extract state/prefecture/region
+        function extractState(address) {
+            // Different countries use different terms
+            return address.state ||           // USA, Canada, Australia, etc.
+                   address.region ||          // Some European countries
+                   address.prefecture ||      // Japan
+                   address.province ||        // Canada, China
+                   address.district ||        // Some countries
+                   address.county ||          // Some administrative divisions
+                   null;                      // Return null if not available
+        }
+        
+        // Transform Nominatim results to our format
+        filteredCities = data
+            .filter(place => {
+                // Filter for places with coordinates and valid location types
+                if (!place.lat || !place.lon) return false;
+                
+                const address = place.address || {};
+                const placeType = place.class || '';
+                const placeTypeDetail = place.type || '';
+                
+                // Accept cities, towns, villages, municipalities, administrative boundaries
+                // But exclude very specific places like shops, restaurants, etc.
+                const validTypes = [
+                    'place', 'boundary', 'administrative'
+                ];
+                const validPlaceDetails = [
+                    'city', 'town', 'village', 'municipality', 'administrative',
+                    'suburb', 'city_block', 'neighbourhood', 'quarter', 'hamlet',
+                    'locality', 'borough', 'state_district'
+                ];
+                
+                // Accept if it's a valid place type
+                if (validTypes.includes(placeType)) {
+                    if (validPlaceDetails.includes(placeTypeDetail)) {
+                        return true;
+                    }
+                }
+                
+                // Also accept if it has city/town/village in address
+                if (address.city || address.town || address.village || address.municipality) {
+                    return true;
+                }
+                
+                return false;
+            })
+            .map(place => {
+                const address = place.address || {};
+                return {
+                    name: extractCityName(place),
+                    country: extractCountry(address),
+                    state: extractState(address),
+                    lat: parseFloat(place.lat),
+                    lng: parseFloat(place.lon),
+                    display_name: place.display_name,
+                    importance: parseFloat(place.importance || 0) // For sorting by relevance
+                };
+            })
+            .filter((place, index, self) => {
+                // Remove duplicates: same name, country, and very close coordinates
+                // Keep the one with higher importance
+                const isDuplicate = self.some((p, otherIndex) => {
+                    if (index === otherIndex) return false;
+                    
+                    const sameNameAndCountry = 
+                        p.name === place.name && 
+                        p.country === place.country;
+                    
+                    if (!sameNameAndCountry) return false;
+                    
+                    // Check if coordinates are very close (within ~1km)
+                    const latDiff = Math.abs(p.lat - place.lat);
+                    const lngDiff = Math.abs(p.lng - place.lng);
+                    const isSameLocation = latDiff < 0.01 && lngDiff < 0.01;
+                    
+                    // If same location and this one has lower importance, it's a duplicate
+                    return isSameLocation && p.importance > place.importance;
+                });
+                
+                return !isDuplicate;
+            })
+            .sort((a, b) => {
+                // Sort by importance first (most relevant first), then alphabetically
+                if (b.importance !== a.importance) {
+                    return b.importance - a.importance;
+                }
+                return a.name.localeCompare(b.name);
+            });
+        
+        // Ensure diversity: limit results per country to avoid one country dominating
+        // This ensures users can see cities with the same name from different countries
+        const maxPerCountry = 5; // Maximum results per country
+        const countryCounts = {};
+        const diverseResults = [];
+        
+        for (const city of filteredCities) {
+            const countryKey = city.country || 'Unknown';
+            const count = countryCounts[countryKey] || 0;
+            
+            if (count < maxPerCountry) {
+                diverseResults.push(city);
+                countryCounts[countryKey] = count + 1;
+            }
+            
+            // Stop when we have enough results
+            if (diverseResults.length >= 40) {
+                break;
+            }
+        }
+        
+        filteredCities = diverseResults;
+        
+    } catch (error) {
+        console.error('Error searching cities:', error);
+        filteredCities = [];
+        const cityListContainer = document.getElementById('cityList');
+        cityListContainer.innerHTML = '<div class="text-red-400 p-2 text-center">Error loading cities. Please try again.</div>';
+    } finally {
+        isLoadingCities = false;
+        renderCityList();
+    }
 }
 
 // Initialize search functionality
@@ -134,7 +264,7 @@ function initializeSearch() {
         } else {
             searchInputContainer.classList.add('hidden');
             citySearch.value = '';
-            filteredCities = [...cities];
+            filteredCities = [];
             renderCityList();
             searchCursor.style.display = 'none';
         }
@@ -144,16 +274,22 @@ function initializeSearch() {
         // Keep cursor visible when typing
         searchCursor.style.display = 'block';
         
-        const query = e.target.value.toLowerCase();
-        if (query === '') {
-            filteredCities = [...cities];
-        } else {
-            filteredCities = cities.filter(city => 
-                city.name.toLowerCase().includes(query) || 
-                city.country.toLowerCase().includes(query)
-            );
+        const query = e.target.value.trim();
+        
+        // Clear previous timeout
+        if (searchTimeout) {
+            clearTimeout(searchTimeout);
         }
-        renderCityList();
+        
+        // Debounce API calls - wait 500ms after user stops typing
+        searchTimeout = setTimeout(() => {
+            if (query === '') {
+                filteredCities = [];
+                renderCityList();
+            } else {
+                searchCities(query);
+            }
+        }, 500);
     });
 
     citySearch.addEventListener('blur', () => {
@@ -235,7 +371,7 @@ function renderPlanArea() {
         planItem.innerHTML = `
             <div class="flex items-start justify-between mb-2">
                 <div class="flex-1">
-                    <h3 class="text-white font-bold text-lg">${item.city.name}, ${item.country}</h3>
+                    <h3 class="text-white font-bold text-lg">${item.city.name}${item.city.state ? ', ' + item.city.state : ''}, ${item.city.country}</h3>
                     <div class="flex gap-2 mt-2">
                         <button class="move-up-btn bg-blue-400 hover:bg-blue-500 text-white px-3 py-1 rounded text-sm transition" 
                                 data-index="${index}" ${index === 0 ? 'disabled class="opacity-50 cursor-not-allowed"' : ''}>
@@ -419,9 +555,14 @@ function updateMap() {
     if (tripPlan.length < 2) {
         // Just show markers
         tripPlan.forEach((item, index) => {
+            let popupText = `<b>${item.city.name}</b>`;
+            if (item.city.state) {
+                popupText += `, ${item.city.state}`;
+            }
+            popupText += `<br>${item.city.country}`;
             const marker = L.marker([item.city.lat, item.city.lng])
                 .addTo(map)
-                .bindPopup(`<b>${item.city.name}</b><br>${item.city.country}`);
+                .bindPopup(popupText);
         });
         return;
     }
@@ -458,13 +599,23 @@ function updateMap() {
 
         // Add markers
         if (i === 0) {
+            let fromPopupText = `<b>${from.city.name}</b>`;
+            if (from.city.state) {
+                fromPopupText += `, ${from.city.state}`;
+            }
+            fromPopupText += `<br>${from.city.country}`;
             L.marker([from.city.lat, from.city.lng])
                 .addTo(map)
-                .bindPopup(`<b>${from.city.name}</b><br>${from.city.country}`);
+                .bindPopup(fromPopupText);
         }
+        let toPopupText = `<b>${to.city.name}</b>`;
+        if (to.city.state) {
+            toPopupText += `, ${to.city.state}`;
+        }
+        toPopupText += `<br>${to.city.country}`;
         L.marker([to.city.lat, to.city.lng])
             .addTo(map)
-            .bindPopup(`<b>${to.city.name}</b><br>${to.city.country}`);
+            .bindPopup(toPopupText);
     }
 
     // Fit map to show all points
