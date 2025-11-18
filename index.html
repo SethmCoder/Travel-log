@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Logger</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        body {
+            background-color: #1e3a5f;
+        }
+        .city-list-item:hover {
+            background-color: #2d4a6b;
+        }
+        .blinking-cursor {
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        #citySearch:focus {
+            caret-color: transparent;
+        }
+        .route-line {
+            stroke-width: 4;
+            fill: none;
+        }
+        .route-line.airplane {
+            stroke-dasharray: 10, 5;
+        }
+        .route-line.car {
+            stroke-dasharray: 5, 5;
+        }
+        .route-line.walking {
+            stroke-dasharray: 2, 3;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-blue-900">
+    <div class="container mx-auto p-4">
+        <!-- Main Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+            <!-- Left: City Selection Area -->
+            <div class="lg:col-span-1">
+                <div class="bg-black rounded-lg p-4 h-[600px] flex flex-col">
+                    <!-- Search Header -->
+                    <div class="mb-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <h2 class="text-white text-xl font-bold">Select City</h2>
+                            <button id="searchBtn" class="text-white hover:text-blue-300 transition">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <!-- Search Input (hidden by default) -->
+                        <div id="searchInputContainer" class="hidden mb-2">
+                            <div class="relative flex items-center bg-gray-800 rounded">
+                                <input type="text" id="citySearch" placeholder="Type to search..." 
+                                       class="w-full bg-transparent text-white px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <span id="searchCursor" class="text-white blinking-cursor mr-2 pointer-events-none">|</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- City List -->
+                    <div id="cityList" class="flex-1 overflow-y-auto space-y-1">
+                        <!-- Cities will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Middle: Plan Area -->
+            <div class="lg:col-span-1">
+                <div class="bg-gray-700 rounded-lg p-4 h-[600px] flex flex-col">
+                    <h2 class="text-white text-xl font-bold mb-4">Your Trip Plan</h2>
+                    <div id="planList" class="flex-1 overflow-y-auto space-y-3">
+                        <!-- Plan items will be added here -->
+                        <p class="text-gray-400 text-center mt-8">Select cities to build your trip</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Line Type Selection -->
+            <div class="lg:col-span-1">
+                <div class="bg-gray-700 rounded-lg p-4 h-[600px] flex flex-col">
+                    <h2 class="text-white text-xl font-bold mb-4">Route Type</h2>
+                    <div id="lineTypeContainer" class="hidden">
+                        <p class="text-white mb-4">Select connection type:</p>
+                        <div class="space-y-3">
+                            <button class="line-type-btn w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-lg transition flex items-center justify-center gap-2" data-type="normal">
+                                <span>Normal Line</span>
+                            </button>
+                            <button class="line-type-btn w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-lg transition flex items-center justify-center gap-2" data-type="airplane">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+                                </svg>
+                                <span>Airplane</span>
+                            </button>
+                            <button class="line-type-btn w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-lg transition flex items-center justify-center gap-2" data-type="car">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
+                                    <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"></path>
+                                </svg>
+                                <span>Car</span>
+                            </button>
+                            <button class="line-type-btn w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-lg transition flex items-center justify-center gap-2" data-type="walking">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>Walking</span>
+                            </button>
+                        </div>
+                        <div id="colorPickerContainer" class="mt-4 hidden">
+                            <label class="text-white mb-2 block">Line Color:</label>
+                            <input type="color" id="lineColorPicker" value="#3b82f6" class="w-full h-10 rounded">
+                        </div>
+                    </div>
+                    <div id="noSelection" class="text-gray-400 text-center mt-8">
+                        Add a second city to select route type
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Area -->
+        <div class="bg-gray-800 rounded-lg p-4">
+            <h2 class="text-white text-xl font-bold mb-4">Trip Map</h2>
+            <div id="map" class="w-full h-[500px] rounded-lg"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
