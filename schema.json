@@ -1,0 +1,297 @@
+{
+  "description": "Travel Logger Database Schema - JSON Schema Definition",
+  "users": {
+    "table": "users",
+    "fields": {
+      "id": {
+        "type": "integer",
+        "primary_key": true,
+        "auto_increment": true,
+        "description": "Unique user identifier"
+      },
+      "username": {
+        "type": "text",
+        "required": true,
+        "unique": true,
+        "description": "User's username"
+      },
+      "created_at": {
+        "type": "timestamp",
+        "default": "CURRENT_TIMESTAMP",
+        "description": "When the user account was created"
+      },
+      "updated_at": {
+        "type": "timestamp",
+        "default": "CURRENT_TIMESTAMP",
+        "description": "Last update timestamp"
+      }
+    }
+  },
+  "trips": {
+    "table": "trips",
+    "fields": {
+      "id": {
+        "type": "integer",
+        "primary_key": true,
+        "auto_increment": true,
+        "description": "Unique trip identifier"
+      },
+      "user_id": {
+        "type": "integer",
+        "required": true,
+        "foreign_key": "users(id)",
+        "description": "Owner of this trip"
+      },
+      "name": {
+        "type": "text",
+        "required": true,
+        "description": "Trip name/project name"
+      },
+      "description": {
+        "type": "text",
+        "description": "Optional trip description"
+      },
+      "created_at": {
+        "type": "timestamp",
+        "default": "CURRENT_TIMESTAMP"
+      },
+      "updated_at": {
+        "type": "timestamp",
+        "default": "CURRENT_TIMESTAMP"
+      }
+    },
+    "relationships": {
+      "user": {
+        "type": "many-to-one",
+        "table": "users",
+        "on_delete": "CASCADE"
+      },
+      "cities": {
+        "type": "one-to-many",
+        "table": "trip_cities"
+      },
+      "routes": {
+        "type": "one-to-many",
+        "table": "trip_routes"
+      },
+      "flags": {
+        "type": "one-to-many",
+        "table": "trip_flags"
+      }
+    }
+  },
+  "trip_cities": {
+    "table": "trip_cities",
+    "fields": {
+      "id": {
+        "type": "integer",
+        "primary_key": true,
+        "auto_increment": true
+      },
+      "trip_id": {
+        "type": "integer",
+        "required": true,
+        "foreign_key": "trips(id)"
+      },
+      "city_name": {
+        "type": "text",
+        "required": true,
+        "description": "Name of the city"
+      },
+      "state": {
+        "type": "text",
+        "description": "State/prefecture/province"
+      },
+      "country": {
+        "type": "text",
+        "required": true,
+        "description": "Country name"
+      },
+      "latitude": {
+        "type": "real",
+        "required": true,
+        "description": "City latitude coordinate"
+      },
+      "longitude": {
+        "type": "real",
+        "required": true,
+        "description": "City longitude coordinate"
+      },
+      "display_name": {
+        "type": "text",
+        "description": "Full display name from geocoding API"
+      },
+      "order_index": {
+        "type": "integer",
+        "required": true,
+        "description": "Order in the trip (0-based)"
+      },
+      "notes": {
+        "type": "text",
+        "description": "User notes about this city"
+      },
+      "created_at": {
+        "type": "timestamp",
+        "default": "CURRENT_TIMESTAMP"
+      }
+    },
+    "relationships": {
+      "trip": {
+        "type": "many-to-one",
+        "table": "trips",
+        "on_delete": "CASCADE"
+      },
+      "images": {
+        "type": "one-to-many",
+        "table": "trip_images"
+      },
+      "outgoing_routes": {
+        "type": "one-to-many",
+        "table": "trip_routes",
+        "field": "from_city_id"
+      },
+      "incoming_routes": {
+        "type": "one-to-many",
+        "table": "trip_routes",
+        "field": "to_city_id"
+      }
+    }
+  },
+  "trip_routes": {
+    "table": "trip_routes",
+    "fields": {
+      "id": {
+        "type": "integer",
+        "primary_key": true,
+        "auto_increment": true
+      },
+      "trip_id": {
+        "type": "integer",
+        "required": true,
+        "foreign_key": "trips(id)"
+      },
+      "from_city_id": {
+        "type": "integer",
+        "required": true,
+        "foreign_key": "trip_cities(id)",
+        "description": "Starting city"
+      },
+      "to_city_id": {
+        "type": "integer",
+        "required": true,
+        "foreign_key": "trip_cities(id)",
+        "description": "Destination city"
+      },
+      "line_type": {
+        "type": "text",
+        "required": true,
+        "default": "normal",
+        "enum": ["normal", "airplane", "car", "walking"],
+        "description": "Type of route connection"
+      },
+      "line_color": {
+        "type": "text",
+        "default": "#3b82f6",
+        "description": "Hex color code for normal lines"
+      },
+      "created_at": {
+        "type": "timestamp",
+        "default": "CURRENT_TIMESTAMP"
+      }
+    },
+    "relationships": {
+      "trip": {
+        "type": "many-to-one",
+        "table": "trips",
+        "on_delete": "CASCADE"
+      },
+      "from_city": {
+        "type": "many-to-one",
+        "table": "trip_cities",
+        "on_delete": "CASCADE"
+      },
+      "to_city": {
+        "type": "many-to-one",
+        "table": "trip_cities",
+        "on_delete": "CASCADE"
+      }
+    }
+  },
+  "trip_images": {
+    "table": "trip_images",
+    "fields": {
+      "id": {
+        "type": "integer",
+        "primary_key": true,
+        "auto_increment": true
+      },
+      "trip_city_id": {
+        "type": "integer",
+        "required": true,
+        "foreign_key": "trip_cities(id)"
+      },
+      "image_data": {
+        "type": "text",
+        "required": true,
+        "description": "Base64 encoded image, URL, or file path"
+      },
+      "image_type": {
+        "type": "text",
+        "enum": ["base64", "url", "filepath"],
+        "description": "Type of image storage"
+      },
+      "caption": {
+        "type": "text",
+        "description": "Optional image caption"
+      },
+      "created_at": {
+        "type": "timestamp",
+        "default": "CURRENT_TIMESTAMP"
+      }
+    },
+    "relationships": {
+      "trip_city": {
+        "type": "many-to-one",
+        "table": "trip_cities",
+        "on_delete": "CASCADE"
+      }
+    }
+  },
+  "trip_flags": {
+    "table": "trip_flags",
+    "fields": {
+      "id": {
+        "type": "integer",
+        "primary_key": true,
+        "auto_increment": true
+      },
+      "trip_id": {
+        "type": "integer",
+        "required": true,
+        "foreign_key": "trips(id)"
+      },
+      "flag_type": {
+        "type": "text",
+        "required": true,
+        "enum": ["favorite", "completed", "planned", "custom"],
+        "description": "Type of flag/tag"
+      },
+      "flag_value": {
+        "type": "text",
+        "description": "Value for custom flags"
+      },
+      "created_at": {
+        "type": "timestamp",
+        "default": "CURRENT_TIMESTAMP"
+      }
+    },
+    "relationships": {
+      "trip": {
+        "type": "many-to-one",
+        "table": "trips",
+        "on_delete": "CASCADE"
+      }
+    }
+  }
+}
+

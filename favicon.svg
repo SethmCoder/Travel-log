@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Simple geometric airplane silhouette -->
+  <path d="M256 32 L400 160 L320 200 L360 280 L440 320 L480 400 L420 440 L380 380 L340 400 L260 360 L220 420 L180 380 L200 340 L120 300 L180 240 L200 180 L160 120 L256 32 Z" 
+        fill="#3b82f6" 
+        stroke="#1e3a5f" 
+        stroke-width="8"/>
+  <!-- Window detail -->
+  <circle cx="256" cy="200" r="12" fill="#ffffff"/>
+  <circle cx="300" cy="220" r="12" fill="#ffffff"/>
+</svg>
+

@@ -1,0 +1,360 @@
+{
+  "trip": {
+    "id": 2,
+    "user_id": 1,
+    "name": "JApan",
+    "description": "",
+    "created_at": "2025-11-21T03:18:14.438Z",
+    "updated_at": "2025-11-21T03:34:54.770Z"
+  },
+  "cities": [
+    {
+      "id": 3,
+      "trip_id": 2,
+      "city_name": "Bellevue",
+      "state": "Washington",
+      "country": "United States",
+      "latitude": 47.6144219,
+      "longitude": -122.192337,
+      "display_name": "Bellevue, King County, Washington, United States",
+      "order_index": 0,
+      "notes": "",
+      "created_at": "2025-11-21T03:34:54.768Z"
+    },
+    {
+      "id": 4,
+      "trip_id": 2,
+      "city_name": "Tokyo",
+      "state": "Tokyo",
+      "country": "Japan",
+      "latitude": 35.6768601,
+      "longitude": 139.7638947,
+      "display_name": "Tokyo, Japan",
+      "order_index": 1,
+      "notes": "",
+      "created_at": "2025-11-21T03:34:54.768Z"
+    },
+    {
+      "id": 5,
+      "trip_id": 2,
+      "city_name": "Hakodate",
+      "state": "Hokkaido Region",
+      "country": "Japan",
+      "latitude": 41.768793,
+      "longitude": 140.729008,
+      "display_name": "Hakodate, Oshima Subprefecture, Hokkaido Prefecture, Hokkaido Region, Japan",
+      "order_index": 2,
+      "notes": "",
+      "created_at": "2025-11-21T03:34:54.768Z"
+    },
+    {
+      "id": 6,
+      "trip_id": 2,
+      "city_name": "Sapporo",
+      "state": "Hokkaido Prefecture",
+      "country": "Japan",
+      "latitude": 43.061936,
+      "longitude": 141.3542924,
+      "display_name": "Sapporo, Ishikari Subprefecture, Hokkaido Prefecture, Japan",
+      "order_index": 3,
+      "notes": "",
+      "created_at": "2025-11-21T03:34:54.768Z"
+    },
+    {
+      "id": 7,
+      "trip_id": 2,
+      "city_name": "Osaka",
+      "state": "Osaka Prefecture",
+      "country": "Japan",
+      "latitude": 34.6937569,
+      "longitude": 135.5014539,
+      "display_name": "Osaka, Osaka Prefecture, Japan",
+      "order_index": 4,
+      "notes": "",
+      "created_at": "2025-11-21T03:34:54.769Z"
+    },
+    {
+      "id": 8,
+      "trip_id": 2,
+      "city_name": "Fukuoka",
+      "state": "Fukuoka Prefecture",
+      "country": "Japan",
+      "latitude": 33.5898988,
+      "longitude": 130.4017509,
+      "display_name": "Fukuoka, Fukuoka Prefecture, Japan",
+      "order_index": 5,
+      "notes": "",
+      "created_at": "2025-11-21T03:34:54.769Z"
+    },
+    {
+      "id": 9,
+      "trip_id": 2,
+      "city_name": "Kumamoto",
+      "state": "Kumamoto Prefecture",
+      "country": "Japan",
+      "latitude": 32.8033909,
+      "longitude": 130.7082737,
+      "display_name": "Kumamoto, Kumamoto Prefecture, 860-8601, Japan",
+      "order_index": 6,
+      "notes": "",
+      "created_at": "2025-11-21T03:34:54.769Z"
+    },
+    {
+      "id": 10,
+      "trip_id": 2,
+      "city_name": "Kagoshima",
+      "state": "Kagoshima Prefecture",
+      "country": "Japan",
+      "latitude": 31.596793,
+      "longitude": 130.5571949,
+      "display_name": "Kagoshima, Kagoshima Prefecture, 892-8677, Japan",
+      "order_index": 7,
+      "notes": "",
+      "created_at": "2025-11-21T03:34:54.769Z"
+    },
+    {
+      "id": 11,
+      "trip_id": 2,
+      "city_name": "Miyazaki",
+      "state": "Miyazaki Prefecture",
+      "country": "Japan",
+      "latitude": 31.9076334,
+      "longitude": 131.4204022,
+      "display_name": "Miyazaki, Miyazaki Prefecture, 880-8505, Japan",
+      "order_index": 8,
+      "notes": "",
+      "created_at": "2025-11-21T03:34:54.769Z"
+    },
+    {
+      "id": 12,
+      "trip_id": 2,
+      "city_name": "Beppu",
+      "state": "Oita Prefecture",
+      "country": "Japan",
+      "latitude": 33.2845752,
+      "longitude": 131.4913063,
+      "display_name": "Beppu, Oita Prefecture, Japan",
+      "order_index": 9,
+      "notes": "",
+      "created_at": "2025-11-21T03:34:54.769Z"
+    },
+    {
+      "id": 13,
+      "trip_id": 2,
+      "city_name": "Oita",
+      "state": "Oita Prefecture",
+      "country": "Japan",
+      "latitude": 33.2393864,
+      "longitude": 131.6096524,
+      "display_name": "Oita, Oita Prefecture, Japan",
+      "order_index": 10,
+      "notes": "",
+      "created_at": "2025-11-21T03:34:54.769Z"
+    },
+    {
+      "id": 14,
+      "trip_id": 2,
+      "city_name": "Nagasaki",
+      "state": "Nagasaki Prefecture",
+      "country": "Japan",
+      "latitude": 32.7501611,
+      "longitude": 129.8781002,
+      "display_name": "Nagasaki, Nagasaki Prefecture, 850-8685, Japan",
+      "order_index": 11,
+      "notes": "",
+      "created_at": "2025-11-21T03:34:54.769Z"
+    },
+    {
+      "id": 15,
+      "trip_id": 2,
+      "city_name": "Fukuoka Prefecture",
+      "state": "Fukuoka Prefecture",
+      "country": "Japan",
+      "latitude": 33.6251241,
+      "longitude": 130.6180016,
+      "display_name": "Fukuoka Prefecture, Japan",
+      "order_index": 12,
+      "notes": "",
+      "created_at": "2025-11-21T03:34:54.769Z"
+    },
+    {
+      "id": 16,
+      "trip_id": 2,
+      "city_name": "Tokyo International Airport",
+      "state": null,
+      "country": "Japan",
+      "latitude": 35.5456924,
+      "longitude": 139.7760994,
+      "display_name": "Tokyo International Airport, Tokyo, 144-0041, Japan",
+      "order_index": 13,
+      "notes": "",
+      "created_at": "2025-11-21T03:34:54.769Z"
+    },
+    {
+      "id": 17,
+      "trip_id": 2,
+      "city_name": "Honolulu",
+      "state": "Hawaii",
+      "country": "United States",
+      "latitude": 21.304547,
+      "longitude": -157.855676,
+      "display_name": "Honolulu, Honolulu County, Hawaii, United States",
+      "order_index": 14,
+      "notes": "",
+      "created_at": "2025-11-21T03:34:54.769Z"
+    },
+    {
+      "id": 18,
+      "trip_id": 2,
+      "city_name": "Seattle-Tacoma International Airport",
+      "state": "Washington",
+      "country": "United States",
+      "latitude": 47.4475673,
+      "longitude": -122.3080159,
+      "display_name": "Seattle-Tacoma International Airport, South 154th Street, Riverton Heights, SeaTac, King County, Washington, 98158, United States",
+      "order_index": 15,
+      "notes": "",
+      "created_at": "2025-11-21T03:34:54.769Z"
+    }
+  ],
+  "routes": [
+    {
+      "id": 2,
+      "trip_id": 2,
+      "from_city_id": 3,
+      "to_city_id": 4,
+      "line_type": "airplane",
+      "line_color": "#3b82f6",
+      "created_at": "2025-11-21T03:34:54.769Z"
+    },
+    {
+      "id": 3,
+      "trip_id": 2,
+      "from_city_id": 4,
+      "to_city_id": 5,
+      "line_type": "car",
+      "line_color": "#3b82f6",
+      "created_at": "2025-11-21T03:34:54.769Z"
+    },
+    {
+      "id": 4,
+      "trip_id": 2,
+      "from_city_id": 5,
+      "to_city_id": 6,
+      "line_type": "car",
+      "line_color": "#3b82f6",
+      "created_at": "2025-11-21T03:34:54.769Z"
+    },
+    {
+      "id": 5,
+      "trip_id": 2,
+      "from_city_id": 6,
+      "to_city_id": 7,
+      "line_type": "airplane",
+      "line_color": "#3b82f6",
+      "created_at": "2025-11-21T03:34:54.769Z"
+    },
+    {
+      "id": 6,
+      "trip_id": 2,
+      "from_city_id": 7,
+      "to_city_id": 8,
+      "line_type": "airplane",
+      "line_color": "#3b82f6",
+      "created_at": "2025-11-21T03:34:54.769Z"
+    },
+    {
+      "id": 7,
+      "trip_id": 2,
+      "from_city_id": 8,
+      "to_city_id": 9,
+      "line_type": "car",
+      "line_color": "#3b82f6",
+      "created_at": "2025-11-21T03:34:54.769Z"
+    },
+    {
+      "id": 8,
+      "trip_id": 2,
+      "from_city_id": 9,
+      "to_city_id": 10,
+      "line_type": "car",
+      "line_color": "#3b82f6",
+      "created_at": "2025-11-21T03:34:54.769Z"
+    },
+    {
+      "id": 9,
+      "trip_id": 2,
+      "from_city_id": 10,
+      "to_city_id": 11,
+      "line_type": "car",
+      "line_color": "#3b82f6",
+      "created_at": "2025-11-21T03:34:54.770Z"
+    },
+    {
+      "id": 10,
+      "trip_id": 2,
+      "from_city_id": 11,
+      "to_city_id": 12,
+      "line_type": "car",
+      "line_color": "#3b82f6",
+      "created_at": "2025-11-21T03:34:54.770Z"
+    },
+    {
+      "id": 11,
+      "trip_id": 2,
+      "from_city_id": 12,
+      "to_city_id": 13,
+      "line_type": "car",
+      "line_color": "#3b82f6",
+      "created_at": "2025-11-21T03:34:54.770Z"
+    },
+    {
+      "id": 12,
+      "trip_id": 2,
+      "from_city_id": 13,
+      "to_city_id": 14,
+      "line_type": "car",
+      "line_color": "#3b82f6",
+      "created_at": "2025-11-21T03:34:54.770Z"
+    },
+    {
+      "id": 13,
+      "trip_id": 2,
+      "from_city_id": 14,
+      "to_city_id": 15,
+      "line_type": "car",
+      "line_color": "#3b82f6",
+      "created_at": "2025-11-21T03:34:54.770Z"
+    },
+    {
+      "id": 14,
+      "trip_id": 2,
+      "from_city_id": 15,
+      "to_city_id": 16,
+      "line_type": "airplane",
+      "line_color": "#3b82f6",
+      "created_at": "2025-11-21T03:34:54.770Z"
+    },
+    {
+      "id": 15,
+      "trip_id": 2,
+      "from_city_id": 16,
+      "to_city_id": 17,
+      "line_type": "airplane",
+      "line_color": "#3b82f6",
+      "created_at": "2025-11-21T03:34:54.770Z"
+    },
+    {
+      "id": 16,
+      "trip_id": 2,
+      "from_city_id": 17,
+      "to_city_id": 18,
+      "line_type": "airplane",
+      "line_color": "#3b82f6",
+      "created_at": "2025-11-21T03:34:54.770Z"
+    }
+  ],
+  "images": [],
+  "flags": [],
+  "exported_at": "2025-11-21T03:36:14.634Z"
+}

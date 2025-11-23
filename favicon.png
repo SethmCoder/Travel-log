@@ -1,0 +1,9 @@
+<!-- This is a placeholder. The actual PNG would need to be generated from the SVG.
+     For a working favicon, use favicon.svg or convert the SVG to ICO format.
+     You can convert the SVG to PNG/ICO using online tools or ImageMagick:
+     convert favicon.svg -resize 512x512 favicon.png
+     convert favicon.svg -resize 16x16 favicon-16.png
+     convert favicon.svg -resize 32x32 favicon-32.png
+     Then combine: convert favicon-16.png favicon-32.png favicon.png favicon.ico
+-->
+

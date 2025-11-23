@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Connection Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1e1e1e;
+            color: #fff;
+        }
+        .test-section {
+            background: #2d2d2d;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .success { color: #4ade80; }
+        .error { color: #f87171; }
+        .warning { color: #fbbf24; }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #2563eb; }
+        pre {
+            background: #1a1a1a;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Supabase Connection Diagnostic Tool</h1>
+    
+    <div class="test-section">
+        <h2>Configuration</h2>
+        <div id="config"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Connection Test</h2>
+        <button onclick="testConnection()">Test Connection</button>
+        <div id="connectionResult"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Table Tests</h2>
+        <button onclick="testTables()">Test All Tables</button>
+        <div id="tableResults"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>RLS (Row Level Security) Test</h2>
+        <button onclick="testRLS()">Test RLS Status</button>
+        <div id="rlsResults"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Production Setup</h2>
+        <p>To make your app production-ready, run <code>rls-policies-production.sql</code> in Supabase SQL Editor.</p>
+        <p>This will enable RLS with policies that allow the app to work for all users.</p>
+    </div>
+    
+    <div class="test-section">
+        <h2>Write Test</h2>
+        <button onclick="testWrite()">Test Write Operation</button>
+        <div id="writeResults"></div>
+    </div>
+
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="auth-supabase.js"></script>
+    <script>
+        // Display configuration
+        document.getElementById('config').innerHTML = `
+            <p><strong>Supabase URL:</strong> ${SUPABASE_URL || 'Not set'}</p>
+            <p><strong>Anon Key:</strong> ${SUPABASE_ANON_KEY ? SUPABASE_ANON_KEY.substring(0, 20) + '...' : 'Not set'}</p>
+            <p><strong>Supabase Library:</strong> ${window.supabase ? '✓ Loaded' : '✗ Not loaded'}</p>
+        `;
+        
+        async function testConnection() {
+            const resultDiv = document.getElementById('connectionResult');
+            resultDiv.innerHTML = '<p>Testing...</p>';
+            
+            try {
+                const diagnostic = await db.testSupabaseConnection();
+                if (diagnostic.success) {
+                    resultDiv.innerHTML = `<p class="success">✓ Connection successful!</p>`;
+                } else {
+                    resultDiv.innerHTML = `
+                        <p class="error">✗ Connection failed</p>
+                        <p><strong>Error:</strong> ${diagnostic.error}</p>
+                        <p><strong>Code:</strong> ${diagnostic.code || 'N/A'}</p>
+                        <pre>${JSON.stringify(diagnostic.details, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<p class="error">✗ Test failed: ${error.message}</p>`;
+            }
+        }
+        
+        async function testTables() {
+            const resultDiv = document.getElementById('tableResults');
+            resultDiv.innerHTML = '<p>Testing tables...</p>';
+            
+            const tables = ['users', 'trips', 'trip_cities', 'trip_routes', 'trip_images', 'trip_flags'];
+            let results = '<ul>';
+            
+            for (const table of tables) {
+                try {
+                    const { data, error } = await db.supabase
+                        .from(table)
+                        .select('*')
+                        .limit(1);
+                    
+                    if (error) {
+                        if (error.code === '42P01') {
+                            results += `<li class="error">✗ ${table}: Table does not exist</li>`;
+                        } else if (error.code === '42501' || error.message.includes('permission denied')) {
+                            results += `<li class="warning">⚠ ${table}: RLS blocking access</li>`;
+                        } else {
+                            results += `<li class="error">✗ ${table}: ${error.message}</li>`;
+                        }
+                    } else {
+                        results += `<li class="success">✓ ${table}: Accessible</li>`;
+                    }
+                } catch (e) {
+                    results += `<li class="error">✗ ${table}: ${e.message}</li>`;
+                }
+            }
+            
+            results += '</ul>';
+            resultDiv.innerHTML = results;
+        }
+        
+        async function testRLS() {
+            const resultDiv = document.getElementById('rlsResults');
+            resultDiv.innerHTML = '<p>Testing RLS...</p>';
+            resultDiv.innerHTML = '<p class="warning">⚠ RLS status cannot be checked via API. Go to Supabase Dashboard → Table Editor → Edit Table → Check "Enable Row Level Security" toggle.</p>';
+        }
+        
+        async function testWrite() {
+            const resultDiv = document.getElementById('writeResults');
+            resultDiv.innerHTML = '<p>Testing write operation...</p>';
+            
+            try {
+                // Try to insert a test user (will be cleaned up)
+                const testUsername = 'test_' + Date.now();
+                const { data, error } = await db.supabase
+                    .from('users')
+                    .insert([{
+                        username: testUsername,
+                        created_at: new Date().toISOString(),
+                        updated_at: new Date().toISOString()
+                    }])
+                    .select()
+                    .single();
+                
+                if (error) {
+                    if (error.code === '42501' || error.message.includes('permission denied') || error.message.includes('RLS')) {
+                        resultDiv.innerHTML = `
+                            <p class="error">✗ Write blocked by RLS</p>
+                            <p><strong>Solution:</strong> Go to Supabase Dashboard → Table Editor → Edit "users" table → Disable "Enable Row Level Security"</p>
+                            <pre>${JSON.stringify(error, null, 2)}</pre>
+                        `;
+                    } else {
+                        resultDiv.innerHTML = `<p class="error">✗ Write failed: ${error.message}</p><pre>${JSON.stringify(error, null, 2)}</pre>`;
+                    }
+                } else {
+                    // Clean up test user
+                    await db.supabase.from('users').delete().eq('id', data.id);
+                    resultDiv.innerHTML = `<p class="success">✓ Write operation successful!</p>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<p class="error">✗ Test failed: ${error.message}</p>`;
+            }
+        }
+        
+        // Auto-run connection test on load
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                testConnection();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
+
